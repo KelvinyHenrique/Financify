@@ -1,57 +1,79 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StatusBar, TouchableHighlight, Image, TouchableOpacity, TextInput, ScrollView } from 'react-native';
+import { Text, View, StatusBar, TouchableHighlight, Image, TextInput, ScrollView, Keyboard } from 'react-native';
 import styles from './styles';
 import Backspace from '../../assets/Images/tag.svg';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import BoxCategoriesRounded from '../../components/boxCategoriesrRounded';
 import { useNavigation, useRoute } from '@react-navigation/native';
-
-
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { format } from 'date-fns';
+import pt from 'date-fns/locale/pt-BR';
 
 export default function AddTransactionReview() {
-    const [date, setDate] = useState(new Date(1598051730000));
+    const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(false);
     const [displayValue, setDisplayValue] = useState('');
-    const [selectedDate, setSelectedDate] = useState('Today, 26 Apr 2019');
+    const [selectedDate, setSelectedDate] = useState('');
     const [flexbox, setFlexbox] = useState('flex');
     const route = useRoute();
-    
+
     const { amount } = route.params;
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         setDisplayValue(amount);
-    },[]);
+        const nowDate = Date.now();
+        const agora = formatDate(nowDate);
+        setSelectedDate(agora);
+        Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
+        Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
+
+        // cleanup function
+        return () => {
+            Keyboard.removeListener("keyboardDidShow", _keyboardDidShow);
+            Keyboard.removeListener("keyboardDidHide", _keyboardDidHide);
+        };
+    }, []);
+
+
+    function formatDate(date) {
+
+        const formattedDate = format(
+            date,
+            "'Dia' dd 'de' MMMM', às ' HH:mm'h'", {
+            locale: pt
+        }
+        );
+        return formattedDate;
+
+    }
+
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
+        let formatedDate = formatDate(currentDate);
         setDate(currentDate);
-
+        setSelectedDate(formatedDate);
     };
 
     const showMode = currentMode => {
         setShow(true);
         setMode(currentMode);
     };
-
-    const showDatepicker = () => {
-        showMode('date');
-    };
-
-    const showTimepicker = () => {
-        showMode('time');
-    };
-
-    function handleKeyPress(number) {
-        setDisplayValue(displayValue + number);
-    }
-
-    const handlekeyUp = () => {
+    const _keyboardDidShow = () => {
         setFlexbox('none');
-    }
+    };
 
-    const handleEndEditing = () => {
+    const _keyboardDidHide = () => {
         setFlexbox('flex');
+    };
+
+    const handleSendData =  async () => {
+       await fetch("https://devsnotes.herokuapp.com/api/notes")
+        .then((r)=>r.json())
+        .then((json)=>{
+            console.log(json);
+        }).catch((e) => console.log('Error: ', e));
     }
 
 
@@ -99,7 +121,7 @@ export default function AddTransactionReview() {
                         <View style={{ width: '100%' }}>
                             <Text style={{ color: '#CECECE', fontSize: 16 }}>Data da transação</Text>
                             <View style={styles.BoxTransactionDate}>
-                                <TouchableOpacity style={{ justifyContent: 'center', width: '100%', height: '100%' }}>
+                                <TouchableOpacity style={{ justifyContent: 'center', width: '100%', paddingTop: 10, paddingBottom: 10 }} onPress={showMode} activeOpacity={0.1}>
                                     <Text style={{ fontSize: 17, fontWeight: 'bold' }}>{selectedDate}</Text>
                                 </TouchableOpacity>
                                 <View style={{ width: '100%', height: 160, marginTop: 20, display: flexbox }}>
@@ -114,14 +136,14 @@ export default function AddTransactionReview() {
                                     </ScrollView>
                                 </View>
                                 <View>
-                                    <Text style={{ color: '#CECECE', fontSize: 16, marginBottom: 10 }}>Notas</Text>
-                                    <TextInput onFocus={handlekeyUp} onEndEditing={handleEndEditing} style={{ backgroundColor: '#f7f7ff', height: 50, borderRadius: 5 }} />
+                                    <Text style={{ color: '#CECECE', fontSize: 16, marginBottom: 10 }}>Descrição</Text>
+                                    <TextInput style={{ backgroundColor: '#f7f7ff', height: 50, borderRadius: 5 }} onSubmitEditing={Keyboard.dismiss} />
                                 </View>
                             </View>
 
                         </View>
                     </View>
-                    <TouchableHighlight style={styles.nextButton}>
+                    <TouchableHighlight style={styles.nextButton} onPress={handleSendData}>
                         <Text style={styles.nextButtomText}>Adicionar Transação</Text>
                     </TouchableHighlight>
                 </View>
