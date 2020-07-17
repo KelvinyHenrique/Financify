@@ -18,6 +18,8 @@ export default function AddTransactionReview() {
     const [flexbox, setFlexbox] = useState('flex');
     const route = useRoute();
 
+  
+  
     const { amount } = route.params;
 
     useEffect(() => {
@@ -47,7 +49,7 @@ export default function AddTransactionReview() {
         return formattedDate;
 
     }
-
+  
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
@@ -96,7 +98,7 @@ export default function AddTransactionReview() {
                             <View style={{ paddingTop: 22, }}>
                                 <Text style={{ color: '#FFF', fontWeight: 'bold' }}>R$</Text>
                             </View>
-                            <View style={{ marginLeft: 8, }}>
+                            <View style={{ marginLeft: 8 }}>
                                 <Text style={styles.ValueTextAmmount}>{parseFloat(displayValue)}</Text>
                             </View>
 
@@ -121,8 +123,8 @@ export default function AddTransactionReview() {
                         <View style={{ width: '100%' }}>
                             <Text style={{ color: '#CECECE', fontSize: 16 }}>Data da transação</Text>
                             <View style={styles.BoxTransactionDate}>
-                                <TouchableOpacity style={{ justifyContent: 'center', width: '100%', paddingTop: 10, paddingBottom: 10 }} onPress={showMode} activeOpacity={0.1}>
-                                    <Text style={{ fontSize: 17, fontWeight: 'bold' }}>{selectedDate}</Text>
+                                <TouchableOpacity style={{ justifyContent: 'center', width: '100%', height: '100%' }} onPress={showMode}>
+                                    <Text style={{ fontSize: 17, fontWeight: 'bold' }}>{date.toISOString().substring(0,10)}</Text>
                                 </TouchableOpacity>
                                 <View style={{ width: '100%', height: 160, marginTop: 20, display: flexbox }}>
                                     <Text style={{ color: '#CECECE', fontSize: 16 }}>Categorias</Text>
