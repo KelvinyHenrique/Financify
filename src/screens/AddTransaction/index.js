@@ -13,10 +13,6 @@ export default function Cards() {
     const navigation = useNavigation();
     
     function handleKeyPress(number) {
-
-        
-
-
         if (displayValue === '0') {
             setDisplayValue(number)
         } else {
@@ -31,6 +27,10 @@ export default function Cards() {
             amount:mountantParsed
         });
     }
+
+    useEffect(()=>{
+        setDisplayValue('0');
+    },[]);
 
 
     return (

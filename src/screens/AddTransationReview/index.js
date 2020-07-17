@@ -5,23 +5,26 @@ import Backspace from '../../assets/Images/tag.svg';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import BoxCategoriesRounded from '../../components/boxCategoriesrRounded';
 import { useNavigation, useRoute } from '@react-navigation/native';
-
+import moment from 'moment';
 
 
 export default function AddTransactionReview() {
     const [date, setDate] = useState(new Date(1598051730000));
     const [mode, setMode] = useState('date');
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(false);
     const [displayValue, setDisplayValue] = useState('');
     const [selectedDate, setSelectedDate] = useState('Today, 26 Apr 2019');
     const [flexbox, setFlexbox] = useState('flex');
     const route = useRoute();
-    
     const { amount } = route.params;
-    
-    useEffect(()=>{
+
+    useEffect(() => {
+        
+        const now = moment().format('LLL');
         setDisplayValue(amount);
-    },[]);
+        console.log(now);
+    }, [date]);
+    
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
@@ -74,7 +77,7 @@ export default function AddTransactionReview() {
                             <View style={{ paddingTop: 22, }}>
                                 <Text style={{ color: '#FFF', fontWeight: 'bold' }}>R$</Text>
                             </View>
-                            <View style={{ marginLeft: 8, }}>
+                            <View style={{ marginLeft: 8 }}>
                                 <Text style={styles.ValueTextAmmount}>{parseFloat(displayValue)}</Text>
                             </View>
 
@@ -99,8 +102,8 @@ export default function AddTransactionReview() {
                         <View style={{ width: '100%' }}>
                             <Text style={{ color: '#CECECE', fontSize: 16 }}>Data da transação</Text>
                             <View style={styles.BoxTransactionDate}>
-                                <TouchableOpacity style={{ justifyContent: 'center', width: '100%', height: '100%' }}>
-                                    <Text style={{ fontSize: 17, fontWeight: 'bold' }}>{selectedDate}</Text>
+                                <TouchableOpacity style={{ justifyContent: 'center', width: '100%', height: '100%' }} onPress={showMode}>
+                                    <Text style={{ fontSize: 17, fontWeight: 'bold' }}>{date.toISOString().substring(0,10)}</Text>
                                 </TouchableOpacity>
                                 <View style={{ width: '100%', height: 160, marginTop: 20, display: flexbox }}>
                                     <Text style={{ color: '#CECECE', fontSize: 16 }}>Categorias</Text>
