@@ -33,8 +33,12 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 ## 📄 Instalação
 
- <h3>Mobile</h3>
- 
+ <h3>Requisitos</h3>
+
+- Necessário o [react-native cli](https://reactnative.dev/)
+- configuração do dispositivo mobile e conexão via [USB](https://tecnoblog.net/277780/depuracao-usb-como-ativar-ou-desativar-no-android/) com o computador
+
+<h3>Iniciar App</h3>
  -  Entre na pasta `Financify` e execute o comando `npm install`
  - Depois de tudo concluído basta executar o comando `react-native run-android` ou caso seu dispositivo possua IOS use o comando `react-native run-ios`.
 
