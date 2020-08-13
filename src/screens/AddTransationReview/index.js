@@ -77,8 +77,6 @@ export default function AddTransactionReview() {
             console.log(json);
         }).catch((e) => console.log('Error: ', e));
     }
-
-
     return (
         <View style={{ width: '100%', height: '100%' }}>
             <StatusBar barStyle="light-content" backgroundColor={'#FF5400'} />
