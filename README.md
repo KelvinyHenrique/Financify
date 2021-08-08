@@ -32,6 +32,9 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 
  Esse sistema permite uma análise completa das finanças, incluindo gestão de cartão de crédito, controle de saldos e registro de gastos com itens específicos, podendo ter vários cartões de créditos e contas bancarias, com ele será possível salvar comprovante de pagamento, pré cadastrar transações fixas, como serviços de assinatura que são descontados mensalmente para atomatizar as financas.     
 
+## 📄 Download
+
+- Você pode baixar o apk aqui  [Download](https://drive.google.com/file/d/1NTgu1xym-XRuPiUcCFfTeEFI6biDuNtJ/view?usp=sharing)
 ## 📄 Instalação
 
  <h3>Requisitos</h3>
