@@ -14,6 +14,7 @@
 <p>
 
 <p align="center">
+  <img alt="Financify" src="assets/cover.png" width="100%">
   <img alt="Financify" src="assets/app.gif" width="35%">
 </p>
 
