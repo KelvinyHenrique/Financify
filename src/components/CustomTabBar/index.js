@@ -1,9 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
-import { StyleSheet, Text, View } from 'react-native';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faPlus, faRocket, faChartLine, faCreditCard, faUser } from '@fortawesome/free-solid-svg-icons'
-
+import {StyleSheet, Text, View} from 'react-native';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {
+  faPlus,
+  faRocket,
+  faChartLine,
+  faCreditCard,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
+/* eslint-disable prettier/prettier */
 
 
 const TabBar = styled.View`
@@ -35,15 +41,15 @@ const TabBarAddIcon = styled.TouchableHighlight`
 
 const styles = StyleSheet.create({
     onFocused: {
-        color: '#000'
+        color: '#000',
     },
     notFocused: {
         color: '#000',
-    }
-})
+    },
+});
 
 function CustomTabBar({ state, descriptors, navigation }) {
-    
+
     return (
         <TabBar>
             {state.routes.map((route, index) => {
@@ -57,10 +63,10 @@ function CustomTabBar({ state, descriptors, navigation }) {
 
                 const handleTabPress = () => {
                     navigation.navigate(route.name);
-                }
+                };
 
                 const isFocused = state.index === index;
-                
+
 
                 switch (route.name) {
                     case 'AddTransaction':
@@ -84,7 +90,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
                         );
                         break;
 
-                    case 'Cards':
+                    case 'Cartões':
                         return (
                             <TabBarIcon key={index} onPress={handleTabPress} underlayColor="transparent">
                                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -96,7 +102,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
                         );
                         break;
 
-                    case 'History':
+                    case 'Histórico':
                         return (
                             <TabBarIcon key={index} onPress={handleTabPress} underlayColor="transparent">
                                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -108,7 +114,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
                         );
                         break;
 
-                    case 'Profile':
+                    case 'Perfil':
                         return (
                             <TabBarIcon key={index} onPress={handleTabPress} underlayColor="transparent">
                                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
@@ -132,7 +138,7 @@ function CustomTabBar({ state, descriptors, navigation }) {
 
                             </TabBarIcon>
                         );
-                        break
+                        break;
                 }
             })}
         </TabBar>
